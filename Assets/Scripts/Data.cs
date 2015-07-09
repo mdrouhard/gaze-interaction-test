@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 
+//[ExecuteInEditMode]
 public class Data : MonoBehaviour {
 	public Mesh[] meshes;
-	public Material material;
-	
+	public Material[] materials;
+
 	public int maxDepth;
 	private int depth;
 	
@@ -13,23 +15,6 @@ public class Data : MonoBehaviour {
 	public float maxRotationSpeed;
 	
 	private float rotationSpeed;
-	
-	private Material[,] materials = null;
-	
-	private void InitializeMaterials() {
-		materials = new Material[maxDepth + 1, 2];
-		for (int i = 0; i <= maxDepth; i++) {
-			float t = i/ (maxDepth - 1f);
-			t *= t;
-			materials[i, 0] = new Material(material);
-			materials[i, 0].color =
-				Color.Lerp (Color.blue, Color.yellow, t);
-			materials[i, 1] = new Material(material);
-			materials[i, 1].color =
-				Color.Lerp (Color.cyan, Color.white, t);
-		}
-		materials [maxDepth, 1].color = Color.magenta;
-	}
 	
 	private static Vector3[] childDirections = {
 		Vector3.up,
@@ -49,15 +34,12 @@ public class Data : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		if (materials == null) {
-			InitializeMaterials ();
-		}
 		gameObject.AddComponent<MeshFilter> ().mesh = 
 			meshes[Random.Range(0, meshes.Length)];
 		gameObject.AddComponent<MeshRenderer> ().material = 
-			materials [depth, Random.Range(0,2)];
+			materials [Random.Range(0, materials.Length)];
 		if (depth < maxDepth) {
-			StartCoroutine(CreateChildren());
+			CreateChildren();
 		}
 		
 		rotationSpeed = Random.Range (-maxRotationSpeed, maxRotationSpeed);
@@ -78,10 +60,9 @@ public class Data : MonoBehaviour {
 		transform.localRotation = childOrientations[childIndex];
 	}
 	
-	private IEnumerator CreateChildren() {
+	private void CreateChildren() {
 		for (int i = 0; i < childDirections.Length; i++) {
 			if(Random.value < spawnProbability) {
-				yield return new WaitForSeconds (Random.Range (0.1f, 0.5f));
 				new GameObject ("Child").AddComponent<Data> ().
 					Initialize (this, i);
 			}
