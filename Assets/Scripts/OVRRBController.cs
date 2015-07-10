@@ -77,6 +77,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 		public OVRCameraRig ovrCam;
+		public GameObject reticle;
 		//TODO: REMOVE
         //public Camera cam;
         public MovementSettings movementSettings = new MovementSettings();
@@ -131,6 +132,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Update()
         {
+			// toggle visibility of reticle with keypress
+			if (Input.GetKeyDown ("t")) {
+				reticle.SetActive(!reticle.activeSelf);
+			}
             RotateView();
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)

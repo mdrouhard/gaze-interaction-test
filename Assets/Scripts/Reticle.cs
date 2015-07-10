@@ -2,9 +2,12 @@
 using System.Collections;
 
 public class Reticle : MonoBehaviour {
-	
+
+	public GameObject targetObject;
+	public Material highlightMaterial;
 	public Camera cameraFacing = null;
 	private Vector3 originalScale;
+
 
 	// Use this for initialization
 	void Start () {
@@ -19,10 +22,16 @@ public class Reticle : MonoBehaviour {
 			if (Physics.Raycast(new Ray(cameraFacing.transform.position, cameraFacing.transform.forward), 
 			                    out hit)) {
 				distance = hit.distance;
+				if( (Input.GetKeyDown("j")) && 
+				   ((hit.collider.transform.root == targetObject.transform) || (hit.collider.transform == targetObject.transform)) ) {
+					Highlight(hit.collider.gameObject);
+				}
 			} else {
 				distance = cameraFacing.farClipPlane * 0.95f;
 			}
 		
+
+
 
 			transform.position = cameraFacing.transform.position + 
 			(cameraFacing.transform.forward * distance);
@@ -38,5 +47,10 @@ public class Reticle : MonoBehaviour {
 			}
 			transform.localScale = originalScale * distance;
 		}
+	}
+
+	// Highlight targeted game object
+	void Highlight(GameObject highlightObject) {
+		highlightObject.GetComponent<MeshRenderer> ().material = highlightMaterial;
 	}
 }
