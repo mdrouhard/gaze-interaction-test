@@ -54,8 +54,16 @@ public class Data : MonoBehaviour {
 	}
 
 	private void CreateChild() {
-		new GameObject("Child").AddComponent<Data> ().
-			Initialize (this /*, i */);
+		GameObject atom = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+		atom.transform.parent = this.transform;
+
+		Vector3 direction = new Vector3(Random.Range (-1f, 1f), Random.Range (-1f, 1f), Random.Range (-1f, 1f));
+		atom.transform.localPosition = direction * (Random.Range (1f, dataRange) + 0.5f);
+
+//		atom.transform.localPosition = childDirections[Random.Range (0,childDirections.Length)] * 
+//			(Random.Range (1f, dataRange) + 0.5f /* * childScale */);
+//		new GameObject("Child").AddComponent<Data> ().
+//			Initialize (this /*, i */);
 	}
 
 	private void Initialize(Data parent /*, int childIndex */) {
