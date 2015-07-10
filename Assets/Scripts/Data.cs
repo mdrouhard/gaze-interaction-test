@@ -10,32 +10,8 @@ public class Data : MonoBehaviour {
 	public int numNodes;
 	public float dataRange;
 
-//	public int maxDepth;
-//	private int depth;
-//	
-//	public float childScale;
-//	public float spawnProbability;
-//	public float maxRotationSpeed;
-//	
-//	private float rotationSpeed;
-	
-	private static Vector3[] childDirections = {
-		Vector3.up,
-		Vector3.right,
-		Vector3.left,
-		Vector3.forward,
-		Vector3.back
-	};
-	
-	private static Quaternion[] childOrientations = {
-		Quaternion.identity,
-		Quaternion.Euler (0f, 0f, -90f),
-		Quaternion.Euler (0f, 0f, 90f),
-		Quaternion.Euler (90f, 0f, 0f),
-		Quaternion.Euler (-90f, 0f, 0f)
-	};
-	
-	// Use this for initialization
+
+	// initialization
 	void Start () {
 		gameObject.AddComponent<MeshFilter> ().mesh = 
 			meshes[Random.Range(0, meshes.Length)];
@@ -45,12 +21,6 @@ public class Data : MonoBehaviour {
 		for (int i = 0; i < (numNodes - 1); i++) {
 			CreateChild();
 		}
-
-//		if (depth < maxDepth) {
-//			CreateChildren();
-//		}
-//		
-//		rotationSpeed = Random.Range (-maxRotationSpeed, maxRotationSpeed);
 	}
 
 	private void CreateChild() {
@@ -59,27 +29,22 @@ public class Data : MonoBehaviour {
 
 		Vector3 direction = new Vector3(Random.Range (-1f, 1f), Random.Range (-1f, 1f), Random.Range (-1f, 1f));
 		atom.transform.localPosition = direction * (Random.Range (1f, dataRange) + 0.5f);
-
-//		atom.transform.localPosition = childDirections[Random.Range (0,childDirections.Length)] * 
-//			(Random.Range (1f, dataRange) + 0.5f /* * childScale */);
-//		new GameObject("Child").AddComponent<Data> ().
-//			Initialize (this /*, i */);
 	}
 
-	private void Initialize(Data parent /*, int childIndex */) {
-		meshes = parent.meshes;
-		materials = parent.materials;
+//	private void Initialize(Data parent /*, int childIndex */) {
+//		meshes = parent.meshes;
+//		materials = parent.materials;
 //		maxDepth = parent.maxDepth;
 //		maxRotationSpeed = parent.maxRotationSpeed;
 //		depth = parent.depth + 1;
 //		spawnProbability = parent.spawnProbability;
 //		childScale = parent.childScale;
-		transform.parent = parent.transform;
+//		transform.parent = parent.transform;
 //		transform.localScale = Vector3.one * childScale;
-		transform.localPosition = childDirections[Random.Range (0,childDirections.Length)] * 
-			(Random.Range (1f, dataRange) + 0.5f /* * childScale */);
+//		transform.localPosition = childDirections[Random.Range (0,childDirections.Length)] * 
+//			(Random.Range (1f, dataRange) + 0.5f /* * childScale */);
 //		transform.localRotation = childOrientations[childIndex];
-	}
+//	}
 	
 //	private void CreateChildren() {
 //		for (int i = 0; i < childDirections.Length; i++) {
