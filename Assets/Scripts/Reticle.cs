@@ -6,6 +6,7 @@ public class Reticle : MonoBehaviour {
 	public GameObject targetObject;
 	public Material highlightMaterial;
 	public Camera cameraFacing = null;
+	public float fixedGazeSeconds = 2f;
 
 	private Vector3 originalScale;
 	private float timer;
@@ -41,8 +42,6 @@ public class Reticle : MonoBehaviour {
 			}
 		
 
-
-
 			transform.position = cameraFacing.transform.position + 
 			(cameraFacing.transform.forward * distance);
 			
@@ -56,7 +55,18 @@ public class Reticle : MonoBehaviour {
 				distance *= 1 + 5*Mathf.Exp(-distance);
 			}
 			transform.localScale = originalScale * distance;
+
+			// if gaze has fixed on an object for more seconds than fixedGazeSeconds
+			if (timer > fixedGazeSeconds) {
+//				Debug.Log("Initiate extended gaze highlight");
+				Highlight (hit.collider.gameObject);
+			}
 		}
+	}
+
+	// Animate Extended Gaze
+	private void AnimateExtendedGaze(GameObject gazeObject) {
+
 	}
 
 	// Highlight targeted game object
