@@ -22,7 +22,8 @@ public class Reticle : MonoBehaviour {
 			if (Physics.Raycast(new Ray(cameraFacing.transform.position, cameraFacing.transform.forward), 
 			                    out hit)) {
 				distance = hit.distance;
-				if( (Input.GetKeyDown("j")) && 
+				//TODO: Change to cross-platform input
+				if( (Input.GetKeyDown("b")) && 
 				   ((hit.collider.transform.root == targetObject.transform) || (hit.collider.transform == targetObject.transform)) ) {
 					Highlight(hit.collider.gameObject);
 				}

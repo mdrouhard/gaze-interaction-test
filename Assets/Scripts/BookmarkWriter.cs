@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using System;
 using Boomlagoon.JSON;
 
 public class BookmarkWriter : MonoBehaviour {
@@ -14,11 +15,13 @@ public class BookmarkWriter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		outputPath = "Assets/Resources/" + outputFileName;
+		string format = "yyyyMMdd-hhmm";
+		outputPath = "Assets/Resources/"  + outputFileName + "-" + DateTime.Now.ToString (format);
 		if (File.Exists (outputPath)) {
-			Debug.Log (outputPath + " exists -- doing something else");
+			Debug.Log ("ERROR: " + outputPath + " already exists");
 			return;
 		}
+
 
 		bookmarks = new JSONArray ();
 	}
