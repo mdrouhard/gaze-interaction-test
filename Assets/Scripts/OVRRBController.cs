@@ -19,6 +19,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
             [HideInInspector] public float CurrentTargetSpeed = 8f;
 
+
 #if !MOBILE_INPUT
             private bool m_Running;
 #endif
@@ -81,9 +82,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 
         private Rigidbody m_RigidBody;
-        private CapsuleCollider m_Capsule;
+		//TODO: remove?
+//        private CapsuleCollider m_Capsule;
         private float m_YRotation;
-        private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
+		private bool m_Braking;
 
 
         public Vector3 Velocity
@@ -107,8 +109,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             m_RigidBody = GetComponent<Rigidbody>();
-            m_Capsule = GetComponent<CapsuleCollider>();
+			//TODO: remove?
+//            m_Capsule = GetComponent<CapsuleCollider>();
 			mouseLook.Init (transform, ovrCam.centerEyeAnchor);
+			m_Braking = false;
         }
 
 
@@ -126,10 +130,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void FixedUpdate()
         {
             Vector2 input = GetInput();
-			bool isBraking = IsBraking();
 
 			// if braking, only brake
-			if (isBraking) {
+			if (m_Braking) {
 				m_RigidBody.velocity = m_RigidBody.velocity * 0.95f;
 				m_RigidBody.angularVelocity = m_RigidBody.angularVelocity * 0.95f;
 			// else if a move is desired, apply appropriate force
@@ -156,15 +159,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			}
         }
 
-
-		private bool IsBraking() 
-		{
-			float brakeAmt = CrossPlatformInputManager.GetAxis ("Brake");
-
-			bool braking = (brakeAmt > 0) ? true : false;
-			return braking;
-		}
-
         private Vector2 GetInput()
         {
             
@@ -174,7 +168,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     y = CrossPlatformInputManager.GetAxis("Vertical")
                 };
 
-			movementSettings.UpdateDesiredTargetSpeed(input);
+			if (input == Vector2.zero) {
+				m_Braking = true;
+			} else {
+				m_Braking = false;
+				movementSettings.UpdateDesiredTargetSpeed(input);
+			}
+
             return input;
         }
 
@@ -184,8 +184,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             //avoids the mouse looking if the game is effectively paused
             if (Mathf.Abs(Time.timeScale) < float.Epsilon) return;
 
+			//TODO: REMOVE?
             // get the rotation before it's changed
-            float oldYRotation = transform.eulerAngles.y;
+//            float oldYRotation = transform.eulerAngles.y;
 
 			mouseLook.LookRotation (transform, ovrCam.centerEyeAnchor);
         }
