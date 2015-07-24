@@ -6,12 +6,15 @@ public class Reticle : MonoBehaviour {
 	public GameObject targetObject;
 	public Material highlightMaterial;
 	public Camera cameraFacing = null;
+
 	private Vector3 originalScale;
+	private float timer;
 
 
 	// Use this for initialization
 	void Start () {
 		originalScale = transform.localScale;
+		timer = 0f;
 	}
 	
 	// Update is called once per frame
@@ -22,12 +25,18 @@ public class Reticle : MonoBehaviour {
 			if (Physics.Raycast(new Ray(cameraFacing.transform.position, cameraFacing.transform.forward), 
 			                    out hit)) {
 				distance = hit.distance;
+
+				// update timer if object encountered with Raycast
+				timer += Time.deltaTime;
+
 				//TODO: Change to cross-platform input
 				if( (Input.GetKeyDown("b")) && 
 				   ((hit.collider.transform.root == targetObject.transform) || (hit.collider.transform == targetObject.transform)) ) {
 					Highlight(hit.collider.gameObject);
 				}
 			} else {
+				// reset timer if no object encountered with Raycast
+				timer = 0f;
 				distance = cameraFacing.farClipPlane * 0.95f;
 			}
 		
