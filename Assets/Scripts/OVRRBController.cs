@@ -55,6 +55,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 	            {
 		            m_Running = false;
 	            }
+
+//				Debug.Log("current target speed: " + CurrentTargetSpeed);
 #endif
             }
 
@@ -149,6 +151,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
                 {
                     m_RigidBody.AddForce(desiredMove, ForceMode.Impulse);
+//					Debug.Log("Trying to add force: " + desiredMove);
                 }
             }
 
@@ -171,6 +174,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			if (input == Vector2.zero) {
 				m_Braking = true;
 			} else {
+//				Debug.Log("Trying to move");
 				m_Braking = false;
 				movementSettings.UpdateDesiredTargetSpeed(input);
 			}

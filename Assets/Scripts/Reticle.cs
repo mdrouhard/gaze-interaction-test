@@ -60,6 +60,7 @@ public class Reticle : MonoBehaviour {
 			if (timer > fixedGazeSeconds) {
 //				Debug.Log("Initiate extended gaze highlight");
 				Highlight (hit.collider.gameObject);
+				timer = 0f;
 			}
 		}
 	}
