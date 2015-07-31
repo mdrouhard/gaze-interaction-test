@@ -122,9 +122,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
 			//TODO: use cross-platform input
 			// toggle visibility of reticle with keypress
-			if (Input.GetKeyDown ("t")) {
+//			if(Input.GetButton("Fire1")) {
+//			//if (Input.GetKeyDown ("t")) {
+//				reticle.SetActive(!reticle.activeSelf);
+//			}
+
+			if(!reticle.activeSelf && (Input.GetButton("Fire1"))) {
+				reticle.SetActive(!reticle.activeSelf);
+			} else if(reticle.activeSelf && (Input.GetButton("Fire3"))) {
 				reticle.SetActive(!reticle.activeSelf);
 			}
+
             RotateView();
         }
 

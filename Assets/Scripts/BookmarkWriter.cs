@@ -28,7 +28,8 @@ public class BookmarkWriter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown ("b")) {
+		if(Input.GetButton("Fire2")) {
+		//if (Input.GetKeyDown ("b")) {
 			AddBookmark ();
 		}
 	}

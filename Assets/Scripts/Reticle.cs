@@ -31,7 +31,8 @@ public class Reticle : MonoBehaviour {
 				timer += Time.deltaTime;
 
 				//TODO: Change to cross-platform input
-				if( (Input.GetKeyDown("b")) && 
+				//if( (Input.GetKeyDown("b")) &&
+				if( (Input.GetButton("Fire2")) &&
 				   ((hit.collider.transform.root == targetObject.transform) || (hit.collider.transform == targetObject.transform)) ) {
 					Highlight(hit.collider.gameObject);
 				}
