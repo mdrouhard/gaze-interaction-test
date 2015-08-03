@@ -41,4 +41,4 @@ Interactions supported:
 
 6. In targeting mode, bookmark a location only (if no data object is the focus of the crosshairs) using cross
   platform input "Fire 2" (by default, left alt on keyboard or button "B" on Xbox controller).  Both position and
-  orientation of your avatars current location will be saved.
+  orientation of your avatar's current location will be saved.
