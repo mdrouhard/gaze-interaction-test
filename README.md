@@ -2,15 +2,24 @@ Initial demo for exploration of polymer data
 
 HOW TO BUILD:
 
-1. Import into Unity and either run in editor or build with appropriate settings 
-  (2 Scenes: "MOF1-Scene" & "Turbine-Scene")
+1. Import into Unity
 
-2. Oculus SDK and Unity Integration have been updated several times recently.  This demo was built with the following versions:
+2. Run in editor by double clicking the desired scene (either MOF1-Scene" & "Turbine-Scene")) in the 
+   Project Hierarchy panel under Assets -> Scenes.  Then click the triangle play icon in the top 
+   center of the editor window. 
+
+3. Build either or both of 2 Scenes: "MOF1-Scene" & "Turbine-Scene").  To build, click File -> 
+   Build Settings.  Select scenes to build and appropriate settings.  Then click "Build."  The 
+   resulting file (.app format for mac or .exe for Windows) can then be run by double clicking,
+   but display settings may need to be adjusted so that the application renders to the Oculus.
+
+
+4. Oculus SDK and Unity Integration have been updated several times recently.  This demo was built with the following versions:
 	- Oculus SDK 0.5.0.1
 	- Oculus Unity Integration 0.5.0.1
 	- Unity 5.0.2f1 Personal 
 
-3. On Windows, the demo has also been tested with the following Oculus SDK and Unity integration:
+5. On Windows, the demo has also been tested with the following Oculus SDK and Unity integration:
     - Oculus SDK 0.6.0.0
     - Oculus Unity Integration 0.6.0.0
 
